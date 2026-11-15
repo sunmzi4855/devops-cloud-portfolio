@@ -1,0 +1,6 @@
+apiVersion: v2
+name: cloud-devops-demo
+description: Helm deployment for the Cloud DevOps sample HTTP service
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
