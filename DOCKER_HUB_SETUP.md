@@ -6,7 +6,7 @@ This repository contains a working Dockerfile and automated tests. The manual pu
 
 ## 1. Create your Docker Hub repository
 
-Visit https://hub.docker.com/ and sign up or sign in. Create a **public** repository named `cloud-devops-demo` in your own Docker namespace. Docker usernames may differ from GitHub usernames.
+Sign in at https://hub.docker.com/repositories/sunmzi4855. Create a **public** repository named `cloud-devops-demo` in your own Docker namespace. Docker usernames may differ from GitHub usernames.
 
 Suggested description: "Python health-check API demonstrating Docker containerization and GitHub Actions CI/CD."
 
@@ -35,7 +35,7 @@ Then go to https://github.com/sunmzi4855/devops-cloud-portfolio/settings/secrets
 
 Go to https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/dockerhub-publish.yml, choose **Run workflow**, select `main`, and run it.
 
-The workflow runs tests, signs in to Docker Hub, and builds and publishes `<your-docker-username>/cloud-devops-demo:latest` and a commit-tagged image.
+The workflow runs tests, signs in to Docker Hub, and builds and publishes `sunmzi4855/cloud-devops-demo:latest` and a commit-tagged image.
 
 ## 5. Confirm
 
@@ -44,8 +44,8 @@ On Docker Hub, open your public `cloud-devops-demo` repository. Confirm that its
 To run the image:
 
 ```bash
-docker pull YOUR_DOCKER_USERNAME/cloud-devops-demo:latest
-docker run --rm -p 8080:8080 YOUR_DOCKER_USERNAME/cloud-devops-demo:latest
+docker pull sunmzi4855/cloud-devops-demo:latest
+docker run --rm -p 8080:8080 sunmzi4855/cloud-devops-demo:latest
 ```
 
 Visit http://localhost:8080/health to confirm it responds with healthy JSON.
@@ -53,3 +53,7 @@ Visit http://localhost:8080/health to confirm it responds with healthy JSON.
 ## Security and release note
 
 The publish workflow runs **manually**, avoiding automatic pushes during configuration. GitHub Actions permissions are read-only; registry credentials are supplied through the GitHub Actions secret store. This example intentionally does not deploy any paid cloud resources.
+
+## Confirmed account destination
+
+Docker Hub username supplied by the repository owner: `sunmzi4855`. The image destination will be [`sunmzi4855/cloud-devops-demo`](https://hub.docker.com/r/sunmzi4855/cloud-devops-demo) **once the Docker Hub repository is created and the publish workflow succeeds**. Do not interpret this planned link as proof of an existing published image.
