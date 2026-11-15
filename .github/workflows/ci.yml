@@ -1,0 +1,31 @@
+name: CI - Python tests and Docker smoke test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+      - name: Build Docker image
+        run: docker build -t cloud-devops-demo:ci .
+      - name: Verify container health endpoint
+        run: |
+          docker run -d --name demo -p 127.0.0.1:8080:8080 cloud-devops-demo:ci
+          trap 'docker logs demo; docker rm -f demo' EXIT
+          for i in $(seq 1 15); do
+            if curl --fail --silent http://127.0.0.1:8080/health | python -c 'import json,sys; assert json.load(sys.stdin)["status"] == "healthy"'; then
+              exit 0
+            fi
+            sleep 1
+          done
+          exit 1
