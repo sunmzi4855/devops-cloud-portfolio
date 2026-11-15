@@ -1,88 +1,80 @@
-# Cloud Infrastructure & CI/CD Automation
+# DevOps & Cloud Engineering Portfolio
 
-A hands-on DevOps portfolio project demonstrating an automated quality gate for a containerized Python HTTP service. Includes GitHub Actions CI, Docker image construction, HTTP endpoint tests, and a no-cost Terraform infrastructure-as-code example.
+![CI](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/ci.yml/badge.svg)
+![Security](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/security.yml/badge.svg)
 
-> **Status:** Demonstration project. This repository does not claim production deployment, paid cloud provisioning, or work performed for an employer.
+**Five hands-on portfolio projects** covering application delivery, container orchestration, observability, cloud infrastructure as code, and security automation. Built to demonstrate DevOps engineering techniques through source code and reproducible examples.
 
-## Architecture
+> These are independent demonstration projects, not claims of past employer deployments. Kubernetes, monitoring, and AWS components are provided as runnable examples; their cloud deployment has not been verified.
 
-```text
-Git push / pull request
-         |
-   GitHub Actions
-         |
-   Python API tests
-         |
-   Docker image build
-         |
-   Container smoke test
-         |
-  GET /health -> 200 OK
-```
+## Projects
 
-## Technology stack
+| Project | Technologies | What it demonstrates |
+| --- | --- | --- |
+| **01 — CI/CD and containerized API** | Python, Docker, GitHub Actions | Unit/integration tests, container build, non-root runtime, HTTP smoke test |
+| **02 — Kubernetes & Helm** | Kubernetes, Helm, kind | 2-replica Deployment, Service, readiness/liveness probes, resource limits, hardened pod |
+| **03 — Monitoring & observability** | Prometheus, Grafana, Docker Compose | Live Prometheus metrics endpoint, request counter, preconfigured dashboard |
+| **04 — AWS infrastructure as code** | Terraform, AWS VPC, subnets, security groups | Reviewable cloud-network configuration with no automatic apply |
+| **05 — DevSecOps quality gate** | Python, GitHub Actions | Source secret-pattern scanning and security-aware CI |
 
-- **Python 3.12:** Standard-library HTTP service
-- **GitHub Actions:** Continuous integration and automated checks
-- **Docker:** Non-root container and health check
-- **Terraform:** Local-only infrastructure-as-code demonstration (no cloud charges)
-- **Testing:** Python unittest and HTTP smoke tests
+## Repository map
 
-## Quick start
+- [01 — App and CI workflow](app/main.py) · [Dockerfile](Dockerfile) · [CI Actions](.github/workflows/ci.yml) · [Tests](tests/test_app.py)
+- [02 — Kubernetes deployment guide](k8s/README.md) · [Helm chart](helm/cloud-devops-demo/)
+- [03 — Monitoring setup](monitoring/README.md) · [Grafana dashboard](monitoring/grafana/dashboards/health-api.json)
+- [04 — AWS Terraform network project](terraform/aws/README.md) · [Local Terraform demo](terraform/main.tf)
+- [05 — Security automation guide](security/README.md) · [Security Actions](.github/workflows/security.yml)
 
-Run locally from the repository root:
-
-```bash
-python -m app.main
-```
-
-Visit `http://localhost:8080/health` and expect `{"status": "healthy", "service": "cloud-devops-demo"}`.
-
-Run tests:
+## Project 01: Run the application
 
 ```bash
 python -m unittest discover -s tests -v
+docker build -t cloud-devops-demo:local .
+docker run --rm -p 8080:8080 cloud-devops-demo:local
 ```
 
-Build and run Docker:
+Check:
+- `http://localhost:8080/health` returns healthy JSON.
+- `http://localhost:8080/metrics` returns Prometheus-compatible HTTP request counts.
+
+See [GitHub Actions](../../actions) for automated tests and container smoke tests.
+
+## Project 02: Local Kubernetes
+
+Build the image, create a local cluster with kind, load the image, then install either plain Kubernetes manifests or the Helm chart. Step-by-step commands are in the [Kubernetes guide](k8s/README.md).
+
+## Project 03: Monitoring
 
 ```bash
-docker build -t cloud-devops-demo .
-docker run --rm -p 8080:8080 cloud-devops-demo
+export GRAFANA_ADMIN_PASSWORD='your-strong-local-password'
+docker compose -f monitoring/docker-compose.yml up --build -d
 ```
 
-## Terraform demo
+Access Grafana at `http://localhost:3000` and Prometheus at `http://localhost:9090`. Details: [Monitoring guide](monitoring/README.md). No cloud deployment is required.
 
-The Terraform configuration creates a local JSON deployment manifest, not AWS, Azure, or GCP infrastructure.
+## Project 04: Terraform
+
+The [AWS network example](terraform/aws/README.md) is deliberately **not** automatically provisioned, avoiding unexpected cloud charges. The [local Terraform example](terraform/main.tf) generates a JSON manifest without an AWS account.
+
+## Project 05: DevSecOps
 
 ```bash
-cd terraform
-terraform init
-terraform fmt -check
-terraform validate
-terraform apply
-terraform destroy
+python security/secret_scan.py
 ```
 
-The generated `deployment-info.json` and Terraform state files are ignored by Git.
+The [security workflow](.github/workflows/security.yml) checks Git-tracked source for a small set of known secret patterns. This is a training control, not a complete secret-scanning solution.
 
-## CI/CD workflow
+## Security and scope
 
-See [CI workflow](.github/workflows/ci.yml). On pushes, pull requests, or manual dispatch, GitHub Actions runs tests, builds the Docker image and checks the live container's health endpoint.
+- CI permissions are read-only.
+- The application container runs as an unprivileged user.
+- The Kubernetes example uses readiness/liveness probes and resource limits.
+- Grafana and Prometheus are exposed only on localhost in the Compose demo.
+- No cloud credentials or payment details are stored in this repository.
+- Production hardening would require dependency/image scanning, pinned actions and images, credential management, logging and deployment controls.
 
-[View GitHub Actions runs](../../actions)
+## Further enhancements
 
-## Security practices
+Add comprehensive image scanning and SBOM generation; secure publishing to a container registry; Kubernetes validation on CI; infrastructure plan review; real deployment screenshots with evidence.
 
-Container runs as a non-root user; the CI workflow has read-only repository permissions; no credentials are required or stored. For production use, add image scanning, pinned dependencies, authentication, TLS, logging and deployment controls.
-
-## Next improvements
-
-1. Add container vulnerability scanning.
-2. Add a Kubernetes deployment and Helm chart.
-3. Add observability with Prometheus and Grafana.
-4. Provide optional, cost-controlled AWS or Azure infrastructure with Terraform.
-
-## Interview discussion
-
-Explain how automated quality checks catch regressions, how Docker standardizes deployments, how health checks work, and the distinction between Terraform `plan` and `apply`.
+**Maintainer:** [sunmzi4855](https://github.com/sunmzi4855)
