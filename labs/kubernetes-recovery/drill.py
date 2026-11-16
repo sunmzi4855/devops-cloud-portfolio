@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Verify that a local Kubernetes Deployment replaces a deleted pod."""
+from contextlib import suppress
 import json
 import os
 from pathlib import Path
@@ -91,14 +92,17 @@ def main():
             return run("kubectl", "--kubeconfig", config, *args, **kwargs)
 
         run("docker", "build", "--tag", IMAGE, ".", timeout=300)
-        run("kind", "create", "cluster", "--name", cluster, "--kubeconfig", config,
-            "--wait", "90s", timeout=300)
         try:
+            run("kind", "create", "cluster", "--name", cluster, "--kubeconfig", config,
+                "--wait", "90s", timeout=300)
             run("kind", "load", "docker-image", IMAGE, "--name", cluster, timeout=180)
             report = verify_recovery(kubectl)
         except (RuntimeError, subprocess.SubprocessError):
-            kubectl("get", "pods", "--output=wide")
-            kubectl("get", "events", "--sort-by=.metadata.creationTimestamp")
+            if Path(config).exists():
+                for args in (("get", "pods", "--output=wide"),
+                             ("get", "events", "--sort-by=.metadata.creationTimestamp")):
+                    with suppress(subprocess.SubprocessError):
+                        kubectl(*args)
             raise
         finally:
             run("kind", "delete", "cluster", "--name", cluster, "--kubeconfig", config,
