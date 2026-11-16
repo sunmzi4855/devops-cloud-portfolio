@@ -3,7 +3,7 @@
 ![CI](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/ci.yml/badge.svg)
 ![Security](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/security.yml/badge.svg)
 
-**Five hands-on portfolio projects** covering application delivery, container orchestration, observability, cloud infrastructure as code, and security automation. Built to demonstrate DevOps engineering techniques through source code and reproducible examples.
+**Six hands-on portfolio projects** covering application delivery, container orchestration, observability, cloud infrastructure as code, security automation, and release reliability. Built to demonstrate DevOps engineering techniques through source code and reproducible examples.
 
 > These are independent demonstration projects, not claims of past employer deployments. Kubernetes, monitoring, and AWS components are provided as runnable examples; their cloud deployment has not been verified.
 
@@ -17,6 +17,8 @@
 | **04 — AWS infrastructure as code** | Terraform, AWS VPC, subnets, security groups | Reviewable cloud-network configuration with no automatic apply |
 | **05 — DevSecOps quality gate** | Python, GitHub Actions | Source secret-pattern scanning and security-aware CI |
 
+| **06 — Release health gate** | Python, GitHub Actions | HTTP health and latency checks, JSON promotion decision, rollback drill |
+
 ## Repository map
 
 - [01 — App and CI workflow](app/main.py) · [Dockerfile](Dockerfile) · [CI Actions](.github/workflows/ci.yml) · [Tests](tests/test_app.py)
@@ -24,6 +26,8 @@
 - [03 — Monitoring setup](monitoring/README.md) · [Grafana dashboard](monitoring/grafana/dashboards/health-api.json)
 - [04 — AWS Terraform network project](terraform/aws/README.md) · [Local Terraform demo](terraform/main.tf)
 - [05 — Security automation guide](security/README.md) · [Security Actions](.github/workflows/security.yml)
+
+- [06 — Release health gate and rollback drill](reliability/README.md) · [CLI](reliability/release_gate.py) · [Tests](tests/test_release_gate.py)
 
 ## Project 01: Run the application
 
