@@ -43,6 +43,8 @@ See [GitHub Actions](../../actions) for automated tests and container smoke test
 
 Build the image, create a local cluster with kind, load the image, then install either plain Kubernetes manifests or the Helm chart. Step-by-step commands are in the [Kubernetes guide](k8s/README.md).
 
+The [pod recovery lab](labs/kubernetes-recovery/README.md) deletes one API pod, verifies automatic replacement, and records the observed recovery time in GitHub Actions.
+
 ## Project 03: Monitoring
 
 ```bash

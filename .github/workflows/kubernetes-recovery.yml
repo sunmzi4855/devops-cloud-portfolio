@@ -1,0 +1,33 @@
+name: Kubernetes pod recovery lab
+on:
+  pull_request:
+    paths:
+      - 'labs/kubernetes-recovery/**'
+      - '.github/workflows/kubernetes-recovery.yml'
+      - 'k8s/**'
+      - 'app/**'
+      - 'Dockerfile'
+  push:
+    branches: [main]
+    paths:
+      - 'labs/kubernetes-recovery/**'
+      - '.github/workflows/kubernetes-recovery.yml'
+      - 'k8s/**'
+      - 'app/**'
+      - 'Dockerfile'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check runner tooling
+        run: |
+          kind version
+          kubectl version --client
+          docker version
+      - name: Delete a pod and verify recovery
+        run: python3 labs/kubernetes-recovery/drill.py
