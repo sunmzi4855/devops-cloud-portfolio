@@ -40,6 +40,6 @@ resource "aws_security_group" "app" {
   vpc_id      = aws_vpc.demo.id
 
   # No ingress is allowed in this illustrative network foundation.
-  # Add narrowly scoped rules only when actual application requirements are known.
+  ingress = []
   tags = { Name = "${var.project_name}-app" }
 }

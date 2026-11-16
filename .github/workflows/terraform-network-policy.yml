@@ -1,0 +1,28 @@
+name: Terraform AWS network policy
+on:
+  pull_request:
+    paths:
+      - 'terraform/aws/**'
+      - '.github/workflows/terraform-network-policy.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'terraform/aws/**'
+      - '.github/workflows/terraform-network-policy.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check-network-policy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      TF_IN_AUTOMATION: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
+          terraform_wrapper: false
+      - name: Verify safe and unsafe plans with a mocked AWS provider
+        run: python3 terraform/aws/lab/verify_policy.py

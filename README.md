@@ -56,6 +56,8 @@ Access Grafana at `http://localhost:3000` and Prometheus at `http://localhost:90
 
 The [AWS network example](terraform/aws/README.md) is deliberately **not** automatically provisioned, avoiding unexpected cloud charges. The [local Terraform example](terraform/main.tf) generates a JSON manifest without an AWS account.
 
+The [Terraform AWS network policy lab](terraform/aws/lab/README.md) uses a mocked AWS provider to verify that the safe plan passes and that two deliberately unsafe changes are rejected in GitHub Actions.
+
 ## Project 05: DevSecOps
 
 ```bash
