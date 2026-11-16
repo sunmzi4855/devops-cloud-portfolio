@@ -3,6 +3,7 @@ import argparse
 import json
 import math
 import sys
+from http.client import HTTPException
 from time import perf_counter
 from urllib.error import HTTPError
 from urllib.parse import urlsplit
@@ -29,7 +30,7 @@ def probe(endpoint, timeout_seconds):
     except HTTPError as error:
         with error:
             return None, f"HTTP {error.code}"
-    except (OSError, ValueError) as error:
+    except (HTTPException, OSError, ValueError) as error:
         return None, type(error).__name__
 
     if not isinstance(payload, dict) or payload.get("status") != "healthy":
