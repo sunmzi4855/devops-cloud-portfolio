@@ -103,7 +103,7 @@ def main():
     compose = compose_runner(f"outage-lab-{uuid4().hex[:8]}")
     try:
         report = drill(compose)
-    except (RuntimeError, subprocess.SubprocessError):
+    except (Exception, KeyboardInterrupt):
         with suppress(subprocess.SubprocessError):
             compose("logs", "--tail", "60", "api", "prometheus")
         with suppress(subprocess.SubprocessError):
