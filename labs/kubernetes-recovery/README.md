@@ -4,7 +4,7 @@ This DevOps lab injects a pod failure into a two-replica Kubernetes Deployment. 
 
 1. Wait for two ready API pods and verify the API through Kubernetes Service DNS.
 2. Delete one pod and start measuring recovery.
-3. Confirm the surviving pod stays ready and the Deployment has a new ready pod with a different UID.
+3. Confirm that the surviving pod is ready and the Deployment has a new ready pod with a different UID.
 4. Verify the Service again and record the observed recovery time and pod names.
 5. Delete the lab cluster on exit.
 
