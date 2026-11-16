@@ -23,3 +23,5 @@ docker compose -f monitoring/docker-compose.yml down
 ```
 
 Ports are bound to localhost. Do not expose this demonstration deployment publicly. The image tags are demonstrations and should be pinned to digests in production. No cloud account or credentials required.
+
+For an automated failure and recovery exercise, run the [Prometheus API Outage Alert Lab](outage-lab/README.md).
