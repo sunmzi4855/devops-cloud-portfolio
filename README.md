@@ -3,7 +3,7 @@
 ![CI](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/ci.yml/badge.svg)
 ![Security](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/security.yml/badge.svg)
 
-**Five hands-on portfolio projects** covering application delivery, container orchestration, observability, cloud infrastructure as code, and security automation. Built to demonstrate DevOps engineering techniques through source code and reproducible examples.
+**Hands-on portfolio projects** covering application delivery, container orchestration, observability, cloud infrastructure as code, and security automation. Built to demonstrate DevOps engineering techniques through source code and reproducible examples.
 
 > These are independent demonstration projects, not claims of past employer deployments. Kubernetes, monitoring, and AWS components are provided as runnable examples; their cloud deployment has not been verified.
 
@@ -20,7 +20,7 @@
 ## Repository map
 
 - [01 — App and CI workflow](app/main.py) · [Dockerfile](Dockerfile) · [CI Actions](.github/workflows/ci.yml) · [Tests](tests/test_app.py)
-- [02 — Kubernetes deployment guide](k8s/README.md) · [Helm chart](helm/cloud-devops-demo/)
+- [02 — Kubernetes deployment guide](k8s/README.md) · [Helm chart](helm/cloud-devops-demo/) · [Pod recovery lab](labs/kubernetes-recovery/README.md)
 - [03 — Monitoring setup](monitoring/README.md) · [Grafana dashboard](monitoring/grafana/dashboards/health-api.json)
 - [04 — AWS Terraform network project](terraform/aws/README.md) · [Local Terraform demo](terraform/main.tf)
 - [05 — Security automation guide](security/README.md) · [Security Actions](.github/workflows/security.yml)
@@ -42,6 +42,8 @@ See [GitHub Actions](../../actions) for automated tests and container smoke test
 ## Project 02: Local Kubernetes
 
 Build the image, create a local cluster with kind, load the image, then install either plain Kubernetes manifests or the Helm chart. Step-by-step commands are in the [Kubernetes guide](k8s/README.md).
+
+The [pod recovery lab](labs/kubernetes-recovery/README.md) deletes one API pod, verifies automatic replacement, and records the observed recovery time in GitHub Actions.
 
 ## Project 03: Monitoring
 
