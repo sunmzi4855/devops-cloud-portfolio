@@ -16,7 +16,6 @@
 | **03 — Monitoring & observability** | Prometheus, Grafana, Docker Compose | Live Prometheus metrics endpoint, request counter, preconfigured dashboard |
 | **04 — AWS infrastructure as code** | Terraform, AWS VPC, subnets, security groups | Reviewable cloud-network configuration with no automatic apply |
 | **05 — DevSecOps quality gate** | Python, GitHub Actions | Source secret-pattern scanning and security-aware CI |
-
 | **06 — Release health gate** | Python, GitHub Actions | HTTP health and latency checks, JSON promotion decision, rollback drill |
 
 ## Repository map
@@ -26,7 +25,6 @@
 - [03 — Monitoring setup](monitoring/README.md) · [Grafana dashboard](monitoring/grafana/dashboards/health-api.json)
 - [04 — AWS Terraform network project](terraform/aws/README.md) · [Local Terraform demo](terraform/main.tf)
 - [05 — Security automation guide](security/README.md) · [Security Actions](.github/workflows/security.yml)
-
 - [06 — Release health gate and rollback drill](reliability/README.md) · [CLI](reliability/release_gate.py) · [Tests](tests/test_release_gate.py)
 
 ## Project 01: Run the application
