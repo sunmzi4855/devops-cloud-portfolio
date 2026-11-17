@@ -3,11 +3,26 @@
 ![CI](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/ci.yml/badge.svg)
 ![Security](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/security.yml/badge.svg)
 
-**Five hands-on portfolio projects** covering application delivery, container orchestration, observability, cloud infrastructure as code, and security automation. Built to demonstrate DevOps engineering techniques through source code and reproducible examples.
+I’m Sunmy, a cloud and DevOps practitioner focused on infrastructure automation, software delivery, and service reliability. This portfolio brings together Python, Docker, Kubernetes, Terraform, Prometheus, and GitHub Actions through reproducible engineering labs.
+
+**Open to fully remote U.S. DevOps and cloud engineering roles.** [LinkedIn](https://www.linkedin.com/in/sunmisola-joe-119723255)
 
 > These are independent demonstration projects, not claims of past employer deployments. Kubernetes, monitoring, and AWS components are provided as runnable examples; their cloud deployment has not been verified.
 
-## Projects
+## Featured engineering labs
+
+These independent portfolio labs have passing GitHub Actions runs. Each guide links to the tested commit while its draft pull request is open.
+
+| Lab and guide | Observed result | Verification |
+| --- | --- | --- |
+| [Kubernetes pod recovery](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/44c3f43a1f1eb810812c84e51478c208aa24a0bc/labs/kubernetes-recovery/README.md) | Two ready replicas restored in 6.46 seconds after a pod deletion | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43975910651) · [Draft PR #2](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/2) |
+| [Terraform AWS network policy](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/ddcd7afdf3f20ff507de4a85b331db1dca5c668b/terraform/aws/lab/README.md) | Safe plan accepted and both unsafe network changes rejected using a mocked AWS provider | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43979854273) · [Draft PR #3](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/3) |
+| [Prometheus outage alert](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/2bb344ff6f6a8d959c30f825041513c38b45f46c/monitoring/outage-lab/README.md) | Alert fired in 27.28 seconds and cleared in 5.23 seconds after the stop and start requests | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43981933455) · [Draft PR #4](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/4) |
+| [Release health gate](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/bcb0236aa6b1c1d4d870fe3e35fa9e350c5cfd92/reliability/README.md) | Automated tests passed for healthy and failing candidates, response payloads, latency, and CLI validation | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43972322318) · [Draft PR #1](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/1) |
+
+The timing measurements come from individual CI runs in disposable local environments. The Terraform tests use mocked AWS responses.
+
+## Foundation projects
 
 | Project | Technologies | What it demonstrates |
 | --- | --- | --- |
