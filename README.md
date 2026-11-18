@@ -54,6 +54,8 @@ Check:
 
 See [GitHub Actions](../../actions) for automated tests and container smoke tests.
 
+Each successful CI build also produces a downloadable [software bill of materials](security/README.md#inspect-the-tested-container-image) for the image that passed the health check. The download includes package versions, the tested image ID, and the Git revision.
+
 ## Project 02: Local Kubernetes
 
 Build the image, create a local cluster with kind, load the image, then install either plain Kubernetes manifests or the Helm chart. Step-by-step commands are in the [Kubernetes guide](k8s/README.md).
@@ -90,6 +92,6 @@ The [security workflow](.github/workflows/security.yml) checks Git-tracked sourc
 
 ## Further enhancements
 
-Add comprehensive image scanning and SBOM generation; secure publishing to a container registry; Kubernetes validation on CI; infrastructure plan review; real deployment screenshots with evidence.
+Future work includes image vulnerability scanning, secure registry publishing, Kubernetes validation in CI, infrastructure plan review, and deployment screenshots.
 
 **Maintainer:** [sunmzi4855](https://github.com/sunmzi4855)
