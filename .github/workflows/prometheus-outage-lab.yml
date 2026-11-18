@@ -1,0 +1,28 @@
+name: Prometheus API outage alert lab
+on:
+  pull_request:
+    paths:
+      - 'monitoring/**'
+      - 'app/**'
+      - 'Dockerfile'
+      - '.github/workflows/prometheus-outage-lab.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'monitoring/**'
+      - 'app/**'
+      - 'Dockerfile'
+      - '.github/workflows/prometheus-outage-lab.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  outage-alert:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Docker Compose
+        run: docker compose version
+      - name: Verify alert firing and recovery
+        run: python3 monitoring/outage-lab/drill.py

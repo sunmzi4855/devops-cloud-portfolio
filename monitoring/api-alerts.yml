@@ -1,0 +1,11 @@
+groups:
+  - name: demo-api
+    rules:
+      - alert: DemoAPIMetricsUnavailable
+        expr: up{job="cloud-devops-demo"} == 0
+        for: 15s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Prometheus cannot scrape API metrics"
+          description: "The {{ $labels.instance }} metrics target has failed consecutive scrapes."
