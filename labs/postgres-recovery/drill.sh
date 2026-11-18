@@ -102,8 +102,8 @@ cat <<REPORT
 | Check | Observed result |
 | --- | --- |
 | Snapshot rows / restored rows | $expected_rows / $restored_rows |
-| Snapshot data SHA-256 | `$expected_hash` |
-| Restored data SHA-256 | `$restored_hash` |
+| Snapshot data SHA-256 | $expected_hash |
+| Restored data SHA-256 | $restored_hash |
 | Post-backup marker in source / restore | $source_marker / $restored_marker |
 | Damaged archive | Rejected before restore |
 | Single changed value, same row count | Detected and rolled back |

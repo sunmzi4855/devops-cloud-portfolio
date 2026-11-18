@@ -31,4 +31,10 @@ jobs:
           docker run --rm -i --pull=never --network none --user postgres \
             --entrypoint bash postgres:17-bookworm -s \
             < labs/postgres-recovery/drill.sh | tee "$RUNNER_TEMP/recovery.md"
+          for label in Snapshot Restored; do
+            grep -Eq "^\| $label data SHA-256 \| [[:xdigit:]]{64} \|$" "$RUNNER_TEMP/recovery.md" || {
+              echo "::error::Missing $label data fingerprint in the recovery report"
+              exit 1
+            }
+          done
           cat "$RUNNER_TEMP/recovery.md" >> "$GITHUB_STEP_SUMMARY"
