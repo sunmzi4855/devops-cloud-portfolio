@@ -7,7 +7,7 @@ I’m Sunmy. I build and test the checks an on-call engineer needs before shippi
 
 **Open to fully remote U.S. DevOps and cloud engineering roles.** [LinkedIn](https://www.linkedin.com/in/sunmisola-joe-119723255)
 
-## Featured case study · Restoring PostgreSQL after a failed release
+## Featured case study · Can we trust this PostgreSQL backup?
 
 A backup job can finish successfully even when the data you need cannot be recovered. I built a Docker-based drill that takes a snapshot of a job queue, writes one more job, and restores the backup into an empty PostgreSQL database.
 
