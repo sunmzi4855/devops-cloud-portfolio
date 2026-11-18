@@ -1,20 +1,28 @@
-# DevOps & Cloud Engineering Portfolio
+# Sunmy Joseph · DevOps & Cloud Engineering
 
 ![CI](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/ci.yml/badge.svg)
 ![Security](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/security.yml/badge.svg)
 
-I’m Sunmy, a cloud and DevOps practitioner focused on infrastructure automation, software delivery, and service reliability. This portfolio brings together Python, Docker, Kubernetes, Terraform, Prometheus, and GitHub Actions through reproducible engineering labs.
+I’m Sunmy. I build and test the checks an on-call engineer needs before shipping a release or recovering a service. These six independent labs cover database recovery, Kubernetes, AWS infrastructure as code, monitoring, container security, and CI/CD. Each has source code and a recorded test run.
 
 **Open to fully remote U.S. DevOps and cloud engineering roles.** [LinkedIn](https://www.linkedin.com/in/sunmisola-joe-119723255)
 
-> These are independent demonstration projects, not claims of past employer deployments. Kubernetes, monitoring, and AWS components are provided as runnable examples; their cloud deployment has not been verified.
+## Featured case study · Restoring PostgreSQL after a failed release
+
+A backup job can finish successfully even when the data you need cannot be recovered. I built a Docker-based drill that takes a snapshot of a job queue, writes one more job, and restores the backup into an empty PostgreSQL database.
+
+**250 of 250 records were recovered.** The SHA-256 fingerprint of every ordered row matched the snapshot. The later write stayed out of the restore. To test whether the checks could catch a real problem, the drill also rejected a damaged archive and detected a one-field change that left the row count intact.
+
+[Read the case study and rerun it](labs/postgres-recovery/README.md) · [See the passing GitHub Actions run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44419048693)
 
 ## Featured engineering labs
 
-These independent portfolio labs have passing GitHub Actions runs. Each guide links to the tested commit while its draft pull request is open.
+Open a guide for the implementation or its Actions run for the observed result.
 
 | Lab and guide | Observed result | Verification |
 | --- | --- | --- |
+| [PostgreSQL backup and restore](labs/postgres-recovery/README.md) | Recovered 250/250 jobs with matching data fingerprints. The empty-target restore and verification took 54 ms in this lab run. | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44419048693) |
+| [Container software bill of materials](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/4541e83d89700d743f331a67bdbdfb9f10dfd906/security/README.md#inspect-the-tested-container-image) | Cataloged 96 SPDX package entries from the image that passed the HTTP smoke test and verified the exported checksums | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44416902736) · [Draft PR #5](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/5) |
 | [Kubernetes pod recovery](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/44c3f43a1f1eb810812c84e51478c208aa24a0bc/labs/kubernetes-recovery/README.md) | Two ready replicas restored in 6.46 seconds after a pod deletion | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43975910651) · [Draft PR #2](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/2) |
 | [Terraform AWS network policy](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/ddcd7afdf3f20ff507de4a85b331db1dca5c668b/terraform/aws/lab/README.md) | Safe plan accepted and both unsafe network changes rejected using a mocked AWS provider | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43979854273) · [Draft PR #3](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/3) |
 | [Prometheus outage alert](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/2bb344ff6f6a8d959c30f825041513c38b45f46c/monitoring/outage-lab/README.md) | Alert fired in 27.28 seconds and cleared in 5.23 seconds after the stop and start requests | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43981933455) · [Draft PR #4](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/4) |
@@ -90,6 +98,6 @@ The [security workflow](.github/workflows/security.yml) checks Git-tracked sourc
 
 ## Further enhancements
 
-Add comprehensive image scanning and SBOM generation; secure publishing to a container registry; Kubernetes validation on CI; infrastructure plan review; real deployment screenshots with evidence.
+Future work includes validating backup recovery with a production-sized fixture and exercising registry publishing and deployment to a dedicated cloud test environment.
 
 **Maintainer:** [sunmzi4855](https://github.com/sunmzi4855)
