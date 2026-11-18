@@ -4,6 +4,18 @@ A backup job can finish successfully and still leave an open question for the on
 
 This drill starts an isolated PostgreSQL 17 cluster, seeds a job queue, and creates a logical backup. It restores that archive into a new database and exits with an error if any recovery check fails. It uses generated data and needs only Docker.
 
+## Recorded result
+
+On November 18, 2026, GitHub Actions restored all **250 of 250** synthetic jobs. The snapshot and restored database produced the same SHA-256 digest over every row and column.
+
+```text
+f400a5443e1c3eb44a087ad7deb752461c58d3ddde230af5bb3339a47c64d4ff
+```
+
+The source contained the post-backup marker and the restored copy contained zero. The drill rejected a damaged copy of the archive and detected a one-field change that preserved the row count. Creating the target, restoring the data, and verifying it took **54 ms** in this run on a disposable runner.
+
+[Open the recorded GitHub Actions run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44419048693)
+
 ## Run the drill
 
 From the repository root, run the following in a Bash-compatible shell.
