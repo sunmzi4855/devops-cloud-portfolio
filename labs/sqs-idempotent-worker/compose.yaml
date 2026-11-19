@@ -1,0 +1,10 @@
+services:
+  queue:
+    image: softwaremill/elasticmq-native:1.7.1
+    ports:
+      - "127.0.0.1:9324:9324"
+  ledger:
+    image: amazon/dynamodb-local:3.3.2
+    command: ["-jar", "DynamoDBLocal.jar", "-inMemory", "-sharedDb"]
+    ports:
+      - "127.0.0.1:8000:8000"
