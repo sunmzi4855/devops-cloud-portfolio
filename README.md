@@ -3,9 +3,11 @@
 ![CI](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/ci.yml/badge.svg)
 ![Security](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/workflows/security.yml/badge.svg)
 
-I’m Sunmy. I build and test the checks an on-call engineer needs before shipping a release or recovering a service. These six independent labs cover database recovery, Kubernetes, AWS infrastructure as code, monitoring, container security, and CI/CD. Each has source code and a recorded test run.
+I’m Sunmy. I build and test the checks an on-call engineer needs before shipping a release or recovering a service. These seven independent labs cover event-driven Python services, database recovery, Kubernetes, AWS infrastructure as code, monitoring, container security, and CI/CD. Each has source code and a recorded test run.
 
 **Open to fully remote U.S. DevOps and cloud engineering roles.** [LinkedIn](https://www.linkedin.com/in/sunmisola-joe-119723255)
+
+**Latest project · Eight workers, one deployment record.** I sent the same deployment event to eight Python workers at once. One wrote the record, and seven recognized the replay. The lab also exercises a worker crash and shows how to recover a corrected message from a dead-letter queue. [Read the SQS case study](labs/sqs-idempotent-worker/README.md) · [See the test run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44626371210)
 
 ## Featured case study · Can we trust this PostgreSQL backup?
 
@@ -21,6 +23,7 @@ Open a guide for the implementation or its Actions run for the observed result.
 
 | Lab and guide | Observed result | Verification |
 | --- | --- | --- |
+| [SQS worker replay and dead-letter recovery](labs/sqs-idempotent-worker/README.md) | Eight concurrent deliveries produced one record and seven replays. Two bad messages reached the dead-letter queue, and the corrected message was recovered. Tested with ElasticMQ and DynamoDB Local. | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44626371210) |
 | [PostgreSQL backup and restore](labs/postgres-recovery/README.md) | Recovered 250/250 jobs with matching data fingerprints. The empty-target restore and verification took 54 ms in this lab run. | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44419048693) |
 | [Container software bill of materials](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/4541e83d89700d743f331a67bdbdfb9f10dfd906/security/README.md#inspect-the-tested-container-image) | Cataloged 96 SPDX package entries from the image that passed the HTTP smoke test and verified the exported checksums | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44416902736) · [Draft PR #5](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/5) |
 | [Kubernetes pod recovery](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/44c3f43a1f1eb810812c84e51478c208aa24a0bc/labs/kubernetes-recovery/README.md) | Two ready replicas restored in 6.46 seconds after a pod deletion | [Passed run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/43975910651) · [Draft PR #2](https://github.com/sunmzi4855/devops-cloud-portfolio/pull/2) |

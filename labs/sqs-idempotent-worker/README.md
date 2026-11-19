@@ -4,6 +4,14 @@ A worker records a deployment, then crashes before it can acknowledge the queue 
 
 This lab uses Python, Boto3, an SQS-compatible queue (ElasticMQ), and DynamoDB Local. It runs inside GitHub Actions or on a laptop, with synthetic deployment events and loopback-only endpoints. No AWS account is required.
 
+## Recorded result
+
+On November 19, 2026, seven unit tests and the integration drill passed on the main branch. Eight concurrent deliveries of the same deployment produced **one new record and seven recognized replays**. When the worker stopped after a write, the same queue message returned on its second delivery and was acknowledged without duplicating the record.
+
+One malformed event and one conflicting revision each reached the dead-letter queue after three source deliveries. The corrected event was replayed successfully. The conflicting revision remained available for review, and the ledger contained exactly the three expected deployments.
+
+[Open the GitHub Actions run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44626371210) · [Inspect the tested worker](https://github.com/sunmzi4855/devops-cloud-portfolio/blob/408641c95ed637c8cc7b469b9f8155f15688c6a8/labs/sqs-idempotent-worker/worker.py)
+
 ## How the worker decides
 
 Each event contains a business `event_id`, a `service`, and a `revision`. Eight separately sent messages can have eight transport IDs and still describe the same deployment. The worker keys the ledger by the business ID.
