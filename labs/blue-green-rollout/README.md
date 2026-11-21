@@ -18,6 +18,8 @@ Both commands use only Node’s standard library. Each run starts fresh servers 
 
 ## Reproduced outcomes
 
+GitHub Actions passed all six integration tests and checked the final route in each of the four scenarios below. [View the recorded run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44843181926)
+
 | Green candidate | What the controller saw through the route | Decision | Who served the final $25.00 quote? |
 | --- | --- | --- | --- |
 | Healthy | All five quotes had the expected release, quantity, currency and total | Promote | Green |
