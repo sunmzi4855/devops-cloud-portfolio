@@ -1,0 +1,37 @@
+name: Blue-green deployment and rollback
+
+on:
+  pull_request:
+    paths:
+      - 'labs/blue-green-rollout/**'
+      - '.github/workflows/blue-green-rollout.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'labs/blue-green-rollout/**'
+      - '.github/workflows/blue-green-rollout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rollout:
+    name: Verify live cutover and rollback
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: labs/blue-green-rollout
+        shell: bash
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Test in-flight requests, rollback verification, and retry
+        run: node --test router.test.mjs
+      - name: Exercise four release scenarios
+        run: |
+          set -o pipefail
+          node drill.mjs | tee -a "$GITHUB_STEP_SUMMARY"
