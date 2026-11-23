@@ -19,7 +19,7 @@ A backup job can finish successfully even when the data you need cannot be recov
 
 ## Azure cost investigation
 
-A synthetic Azure export showed a $192 daily increase. Virtual machines in one resource group accounted for $180. The Python investigation checks partition and row counts, includes refunds, and ranks the changes by resource group and meter category. [Explore the cost investigation](labs/azure-cost-anomaly/README.md)
+A synthetic Azure export showed a $192 daily increase. Virtual machines in one resource group accounted for $180. The Python investigation checks partition and row counts, includes refunds, and ranks the changes by resource group and meter category. [Explore the cost investigation](labs/azure-cost-anomaly/README.md) · [Passing GitHub Actions run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/45289136537)
 
 ## Featured engineering labs
 

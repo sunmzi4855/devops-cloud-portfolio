@@ -15,6 +15,8 @@ Virtual machines accounted for **93.75%** of the increase. App Service had an $8
 
 ## Reproduce the investigation
 
+GitHub Actions passed 13 tests and saved the normal-day and spike reports. [View the recorded run and both JSON reports](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/45289136537)
+
 Use Python 3.10 or newer from the repository root. The lab uses the standard library and included sample data.
 
 ```sh
