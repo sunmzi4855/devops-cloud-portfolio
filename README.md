@@ -17,6 +17,10 @@ A backup job can finish successfully even when the data you need cannot be recov
 
 [Read the case study and rerun it](labs/postgres-recovery/README.md) · [See the passing GitHub Actions run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/44419048693)
 
+## Azure cost investigation
+
+A synthetic Azure export showed a $192 daily increase. Virtual machines in one resource group accounted for $180. The Python investigation checks partition and row counts, includes refunds, and ranks the changes by resource group and meter category. [Explore the cost investigation](labs/azure-cost-anomaly/README.md)
+
 ## Featured engineering labs
 
 Open a guide for the implementation or its Actions run for the observed result.
