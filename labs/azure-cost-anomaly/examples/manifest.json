@@ -1,0 +1,19 @@
+{
+  "exportConfig": {
+    "exportName": "synthetic-azure-cost-lab",
+    "type": "ActualCost",
+    "dataVersion": "2024-08-01"
+  },
+  "blobCount": 2,
+  "dataRowCount": 28,
+  "blobs": [
+    {
+      "blobName": "synthetic-cost-export/example-run/part-0.csv",
+      "dataRowCount": 18
+    },
+    {
+      "blobName": "synthetic-cost-export/example-run/part-1.csv",
+      "dataRowCount": 10
+    }
+  ]
+}
