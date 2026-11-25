@@ -34,10 +34,6 @@ jobs:
         run: |
           terraform fmt -check -recursive config
           python3 -m unittest -v
-      - name: Capture the provider dependency lock
-        run: |
-          terraform -chdir=config init -backend=false -input=false -no-color
-          cat config/.terraform.lock.hcl
       - name: Rehearse the migration on PostgreSQL
         run: |
           set -o pipefail

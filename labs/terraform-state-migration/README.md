@@ -2,6 +2,15 @@
 
 The `orders` and `audit` databases start at numbered Terraform addresses. Naming them by workload makes the configuration easier to change, but a plain rename produces a plan to delete both databases and create two new ones. This lab rehearses the refactor against a live PostgreSQL container with 240 synthetic orders and 80 audit entries.
 
+## Recorded result
+
+Both databases retained their PostgreSQL OIDs and the full SHA-256 digests of their sorted rows. The second plan reported zero changes. The OIDs below are specific to this run. [View the verified run and download the JSON evidence](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/45721578199)
+
+| Database | OID before and after | Rows before and after | SHA-256 prefix |
+| --- | ---: | ---: | --- |
+| Orders | 16385 | 240 | `b3af084bc9df` |
+| Audit | 16384 | 80 | `1d7a8d0c18b8` |
+
 ## Plans under review
 
 | Configuration | Plan | Decision |
@@ -28,6 +37,6 @@ python3 drill.py --evidence state-migration.json
 
 The drill creates a temporary working directory for Terraform's local state and saved plans. It starts PostgreSQL 17 on a random loopback port and uses a fresh password for that run. It removes the container and working directory afterward. The evidence file contains the observed database identifiers, row counts, hashes, addresses and plan decisions.
 
-The examples use a disposable local environment. A production migration would also need the target backend's state lock, a recoverable backup and checks suited to the workload. [Terraform's refactoring guide](https://developer.hashicorp.com/terraform/language/modules/develop/refactoring)
+The new configuration retains the `moved` blocks so an existing state that still uses the numbered addresses can follow the same migration. [Terraform's refactoring guide](https://developer.hashicorp.com/terraform/language/modules/develop/refactoring)
 
 [Run script](drill.py) · [Before configuration](config/before/databases.tf) · [After configuration](config/after/databases.tf) · [GitHub Actions workflow](../../.github/workflows/terraform-state-migration.yml)
