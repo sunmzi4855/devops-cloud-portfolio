@@ -33,6 +33,10 @@ Open a guide for the implementation or its Actions run for the observed result.
 
 The timing measurements come from individual CI runs in disposable local environments. The Terraform tests use mocked AWS responses.
 
+## Terraform database state migration
+
+A Terraform refactor initially proposed deleting and recreating two PostgreSQL databases. An automated plan check blocked that change. The corrected move retained both database IDs and all 320 synthetic records, and a second plan reported zero changes. [Read the migration case study](labs/terraform-state-migration/README.md) · [See the passing run](https://github.com/sunmzi4855/devops-cloud-portfolio/actions/runs/45721578199)
+
 ## Foundation projects
 
 | Project | Technologies | What it demonstrates |
