@@ -1,0 +1,51 @@
+name: Terraform state migration rehearsal
+
+on:
+  pull_request:
+    paths:
+      - 'labs/terraform-state-migration/**'
+      - '.github/workflows/terraform-state-migration.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'labs/terraform-state-migration/**'
+      - '.github/workflows/terraform-state-migration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  migrate:
+    name: Move database addresses and verify data
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+        working-directory: labs/terraform-state-migration
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: 1.12.2
+          terraform_wrapper: false
+      - name: Check configuration formatting and the plan guard
+        run: |
+          terraform fmt -check -recursive config
+          python3 -m unittest -v
+      - name: Capture the provider dependency lock
+        run: |
+          terraform -chdir=config init -backend=false -input=false -no-color
+          cat config/.terraform.lock.hcl
+      - name: Rehearse the migration on PostgreSQL
+        run: |
+          set -o pipefail
+          python3 drill.py --evidence "$RUNNER_TEMP/state-migration.json" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Save the before and after evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: terraform-state-migration-evidence
+          path: ${{ runner.temp }}/state-migration.json
+          if-no-files-found: error
+          retention-days: 14

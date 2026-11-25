@@ -33,6 +33,10 @@ Open a guide for the implementation or its Actions run for the observed result.
 
 The timing measurements come from individual CI runs in disposable local environments. The Terraform tests use mocked AWS responses.
 
+## Terraform database state migration
+
+A Terraform address refactor puts two PostgreSQL databases and 320 synthetic records at risk in a local drill. The plan guard rejects changes outside the reviewed moves, then the drill checks PostgreSQL object IDs and hashes every row after applying the approved plan. [Run the migration case study](labs/terraform-state-migration/README.md)
+
 ## Foundation projects
 
 | Project | Technologies | What it demonstrates |

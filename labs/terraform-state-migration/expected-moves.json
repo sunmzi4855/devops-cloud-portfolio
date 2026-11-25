@@ -1,0 +1,4 @@
+{
+  "postgresql_database.legacy[0]": "postgresql_database.workload[\"orders\"]",
+  "postgresql_database.legacy[1]": "postgresql_database.workload[\"audit\"]"
+}
